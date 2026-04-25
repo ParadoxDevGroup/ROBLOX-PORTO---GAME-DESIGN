@@ -1,3 +1,3 @@
-local Bootstrap = require(script.Parent:WaitForChild("Bootstrap"))
+local Bootstrap = require(script:WaitForChild("Bootstrap"))
 
 Bootstrap.start()
