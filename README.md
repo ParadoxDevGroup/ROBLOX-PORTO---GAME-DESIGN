@@ -54,6 +54,7 @@ Implemented:
 - Temporary title reward handling with automatic expiry.
 - Greybox zone dressing with simple buildings, beacons, and floating title labels.
 - Client UI for accepting prompts, searching the zone, and viewing quest status.
+- Enhanced zone visuals: layered neon beacons, street lights with accent-colored bulbs, decorative benches.
 
 Still left for development:
 - Replace greybox zone dressing with final environment art.
@@ -80,6 +81,9 @@ Many Roblox social spaces feel empty after the first few minutes. Players need c
 - A playable quest prototype where zone prompts, a rescue target, and a temporary reward are all connected.
 - Simple greybox environment dressing so each quest zone feels like a real place.
 - A debug overlay and module UI to make the prototype easy to test and explain.
+- Four social prop variants with distinct visual and buff profiles.
+- A three-tier upgrade system for the micro economy (speed, tips, quality).
+- Support for multiple quest types (lost cat, rescue bird) with zone-specific cosmetics.
 
 ### Why It Matters
 This project shows more than gameplay logic. It demonstrates product thinking: defining a player problem, building a focused loop, and presenting the result in a way that can be tested, reviewed, and expanded.
