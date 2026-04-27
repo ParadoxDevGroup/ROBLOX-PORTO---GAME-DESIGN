@@ -147,6 +147,17 @@ function DynamicQuestService:_ensureZoneVisuals()
 		beacon.CFrame = CFrame.new(zone.position + Vector3.new(0, 8.5, 0))
 		beacon.Parent = zoneModel
 
+		local beaconGlow = Instance.new("Part")
+		beaconGlow.Name = "BeaconGlow"
+		beaconGlow.Anchored = true
+		beaconGlow.CanCollide = false
+		beaconGlow.Material = Enum.Material.Neon
+		beaconGlow.Color = accentColor
+		beaconGlow.Transparency = 0.6
+		beaconGlow.Size = Vector3.new(4.5, 20, 4.5)
+		beaconGlow.CFrame = CFrame.new(zone.position + Vector3.new(0, 8.5, 0))
+		beaconGlow.Parent = zoneModel
+
 		local titleAnchor = Instance.new("Part")
 		titleAnchor.Name = "ZoneTitleAnchor"
 		titleAnchor.Anchored = true
@@ -204,6 +215,37 @@ function DynamicQuestService:_ensureZoneVisuals()
 			building.CFrame = CFrame.new(zone.position + spec.offset)
 			building.Parent = zoneModel
 		end
+
+		local streetLight = Instance.new("Part")
+		streetLight.Name = "StreetLight"
+		streetLight.Anchored = true
+		streetLight.CanCollide = false
+		streetLight.Material = Enum.Material.SmoothPlastic
+		streetLight.Color = Color3.fromRGB(40, 40, 50)
+		streetLight.Size = Vector3.new(0.5, 6, 0.5)
+		streetLight.CFrame = CFrame.new(zone.position + Vector3.new(-14, 2.5, 8))
+		streetLight.Parent = zoneModel
+
+		local lightBulb = Instance.new("Part")
+		lightBulb.Name = "LightBulb"
+		lightBulb.Anchored = true
+		lightBulb.CanCollide = false
+		lightBulb.Material = Enum.Material.Neon
+		lightBulb.Color = accentColor
+		lightBulb.Transparency = 0.2
+		lightBulb.Size = Vector3.new(1.2, 1.2, 1.2)
+		lightBulb.CFrame = CFrame.new(zone.position + Vector3.new(-14, 6, 8))
+		lightBulb.Parent = zoneModel
+
+		local bench = Instance.new("Part")
+		bench.Name = "Bench"
+		bench.Anchored = true
+		bench.CanCollide = true
+		bench.Material = Enum.Material.Wood
+		bench.Color = Color3.fromRGB(101, 67, 33)
+		bench.Size = Vector3.new(5, 0.8, 1.5)
+		bench.CFrame = CFrame.new(zone.position + Vector3.new(16, 0.4, 10))
+		bench.Parent = zoneModel
 	end
 
 	self.zoneVisuals = container

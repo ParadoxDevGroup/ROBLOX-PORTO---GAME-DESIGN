@@ -16,6 +16,7 @@ type PlayerState = {
 	tokens: number,
 	speedLevel: number,
 	tipLevel: number,
+	qualityLevel: number,
 	servedCount: number,
 	statusText: string,
 }
@@ -37,6 +38,7 @@ local function createInitialState(): PlayerState
 		tokens = MicroEconomyBalance.InitialTokens,
 		speedLevel = MicroEconomyBalance.InitialSpeedLevel,
 		tipLevel = MicroEconomyBalance.InitialTipLevel,
+		qualityLevel = MicroEconomyBalance.InitialQualityLevel,
 		servedCount = MicroEconomyBalance.InitialServedCount,
 		statusText = "Serve the first customer to begin the cafe loop.",
 	}
@@ -73,16 +75,19 @@ end
 function MicroEconomyService:_buildState(player: Player)
 	local playerState = self:_getState(player)
 	local speedCost = MicroEconomyBalance.costForSpeed(playerState.speedLevel)
-	local tipCost = MicroEconomyBalance.costForTips(playerState.tipLevel)
+	local qualityCost = MicroEconomyBalance.costForQuality(playerState.qualityLevel)
 	local nextPayout = MicroEconomyBalance.payoutForServe(playerState.speedLevel, playerState.tipLevel)
 
 	return {
 		tokens = playerState.tokens,
 		speedLevel = playerState.speedLevel,
 		tipLevel = playerState.tipLevel,
+		qualityLevel = playerState.qualityLevel,
 		servedCount = playerState.servedCount,
 		statusText = playerState.statusText,
 		speedNextCost = speedCost,
+		tipNextCost = tipCost,
+		qualityNextCost = qualitypeedCost,
 		tipNextCost = tipCost,
 		nextPayout = nextPayout,
 	}

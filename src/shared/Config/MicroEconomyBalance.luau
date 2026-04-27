@@ -15,8 +15,14 @@ function MicroEconomyBalance.costForTips(level)
 	return 20 + (level * 24)
 end
 
+function MicroEconomyBalance.costForQuality(level)
+	return 25 + (level * 30)
+end
+
 function MicroEconomyBalance.payoutForServe(speedLevel, tipLevel)
 	return 8 + (speedLevel * 2) + (tipLevel * 2)
 end
+
+MicroEconomyBalance.InitialQualityLevel = 1
 
 return table.freeze(MicroEconomyBalance)

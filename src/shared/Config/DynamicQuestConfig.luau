@@ -6,6 +6,20 @@ local DynamicQuestConfig = {
 	ZonePromptCooldownSeconds = 30,
 	TitleDurationSeconds = 90,
 	RewardTitle = "Neighborhood Hero",
+	QuestTypes = {
+		{
+			name = "LostPet",
+			display = "Lost Cat",
+			targetModel = "Cat",
+			rewardLabel = "Neighborhood Hero",
+		},
+		{
+			name = "RescueBird",
+			display = "Rescue Bird",
+			targetModel = "Bird",
+			rewardLabel = "Friend of the Sky",
+		},
+	},
 	Zones = {
 		{
 			name = "Downtown Plaza",

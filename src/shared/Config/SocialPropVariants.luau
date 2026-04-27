@@ -31,6 +31,16 @@ local SocialPropVariants = {
 		buffBonus = 8,
 		buffDuration = 14,
 	},
+	{
+		name = "Golden Hour",
+		description = "Luxe variant with warm ambient glow.",
+		accentColor = Color3.fromRGB(255, 204, 0),
+		baseColor = Color3.fromRGB(139, 109, 55),
+		lidColor = Color3.fromRGB(255, 223, 102),
+		buffLabel = "golden blessing",
+		buffBonus = 9,
+		buffDuration = 15,
+	},
 }
 
 return table.freeze(SocialPropVariants)
