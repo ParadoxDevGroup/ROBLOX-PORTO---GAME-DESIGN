@@ -11,12 +11,16 @@ local ModuleLoader = require(Modules:WaitForChild("ModuleLoader"))
 local defaultContext = {
 	activeModule = nil,
 	isMenuVisible = true,
+	isUiVisible = true,
 	sessionStartedAt = nil,
 	activateModule = function(_moduleId)
 		warn("[HubContext] activateModule called before provider mount")
 	end,
 	returnToMenu = function()
 		warn("[HubContext] returnToMenu called before provider mount")
+	end,
+	toggleUi = function()
+		warn("[HubContext] toggleUi called before provider mount")
 	end,
 }
 
@@ -25,12 +29,14 @@ local HubContext = React.createContext(defaultContext)
 local function HubProvider(props)
 	local activeModule, setActiveModule = React.useState(nil)
 	local isMenuVisible, setMenuVisible = React.useState(true)
+	local isUiVisible, setUiVisible = React.useState(true)
 	local sessionStartedAt, setSessionStartedAt = React.useState(nil)
 
 	local contextValue = React.useMemo(function()
 		return {
 			activeModule = activeModule,
 			isMenuVisible = isMenuVisible,
+			isUiVisible = isUiVisible,
 			sessionStartedAt = sessionStartedAt,
 			activateModule = function(moduleId)
 				setActiveModule(moduleId)
@@ -44,8 +50,13 @@ local function HubProvider(props)
 				setSessionStartedAt(nil)
 				ModuleLoader.returnToHub()
 			end,
+			toggleUi = function()
+				setUiVisible(function(currentVisible)
+					return not currentVisible
+				end)
+			end,
 		}
-	end, { activeModule, isMenuVisible, sessionStartedAt })
+	end, { activeModule, isMenuVisible, isUiVisible, sessionStartedAt })
 
 	return React.createElement(HubContext.Provider, {
 		value = contextValue,

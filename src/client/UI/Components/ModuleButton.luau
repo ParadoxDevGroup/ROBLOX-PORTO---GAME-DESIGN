@@ -30,10 +30,10 @@ local function ModuleButton(props)
 			Thickness = 1,
 		}),
 		Padding = React.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, 18),
-			PaddingRight = UDim.new(0, 18),
-			PaddingTop = UDim.new(0, 14),
-			PaddingBottom = UDim.new(0, 14),
+			PaddingLeft = UDim.new(0, 14),
+			PaddingRight = UDim.new(0, 14),
+			PaddingTop = UDim.new(0, 12),
+			PaddingBottom = UDim.new(0, 12),
 		}),
 		Content = React.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -51,7 +51,7 @@ local function ModuleButton(props)
 				Size = UDim2.new(1, 0, 0, 22),
 				Text = props.text,
 				TextColor3 = Color3.fromRGB(235, 238, 242),
-				TextSize = 18,
+				TextSize = 16,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Top,
 			}),

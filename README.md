@@ -19,6 +19,9 @@ src/
 			mountHub.luau
 			App.luau
 			HubMenu.luau
+			DebugOverlay.luau
+			ModuleViews/
+				DynamicQuestView.luau
 			Components/
 				ModuleButton.luau
 	server/
@@ -26,17 +29,72 @@ src/
 		Bootstrap.luau
 		Services/
 			SandboxService.luau
+			DynamicQuestService.luau
 	shared/
 		Config/
 			ModuleIds.luau
+			DynamicQuestConfig.luau
+			Remotes.luau
 ```
 
 ### Responsibilities
-- Client/UI: React-Roblox Hub menu, module selection UX, and local session state.
+- Client/UI: React-Roblox hub menu, debug overlay, module views, and session state.
 - Client/Controllers: Event wiring between UI actions and module initialization.
-- Client/Modules: Loader signal + registry stubs for each prototype environment.
-- Server/Services: Reserved orchestration layer for future module server logic.
+- Server/Services: Runtime logic for the social prop, cafe economy, and dynamic quest modules.
 - Shared/Config: Shared identifiers/constants used by both client and server.
+
+## Module 3 Status
+
+Module 3, Dynamic Quest, is now wired as a playable greybox prototype.
+
+Implemented:
+- Zone-based quest prompts that appear when the player moves near a supported quest zone.
+- A timed cat rescue loop with a 120 second quest window.
+- A world-space `Rescue Lost Cat` ProximityPrompt for completion.
+- Temporary title reward handling with automatic expiry.
+- Greybox zone dressing with simple buildings, beacons, and floating title labels.
+- Client UI for accepting prompts, searching the zone, and viewing quest status.
+
+Still left for development:
+- Replace greybox zone dressing with final environment art.
+- Add more quest variety beyond the single lost pet loop.
+- Tune quest timing, trigger radius, and reward balance after playtesting.
+- Add polish around zone-specific feedback, sounds, and VFX.
+- Add persistence or analytics if session tracking becomes necessary.
+
+## Portfolio Case Study
+
+### Project Summary
+ROBLOX PORTO is a modular social gameplay sandbox built to prototype three systems that support a live-service style Roblox experience. The goal is to make the game feel more social, more rewarding, and more likely to keep players engaged across a session.
+
+### The Player Problem
+Many Roblox social spaces feel empty after the first few minutes. Players need clear reasons to interact, progress, and move between locations so the world feels alive instead of static.
+
+### Design Approach
+- Module 1 focuses on giving players a shared object that creates social interaction.
+- Module 2 focuses on a short progression loop with upgrades and rewards.
+- Module 3 focuses on exploration by sending players into a zone to find a lost pet before time runs out.
+
+### What I Built
+- A hub where each module can be launched independently.
+- A playable quest prototype where zone prompts, a rescue target, and a temporary reward are all connected.
+- Simple greybox environment dressing so each quest zone feels like a real place.
+- A debug overlay and module UI to make the prototype easy to test and explain.
+
+### Why It Matters
+This project shows more than gameplay logic. It demonstrates product thinking: defining a player problem, building a focused loop, and presenting the result in a way that can be tested, reviewed, and expanded.
+
+### Portfolio Talking Points
+- Designed to increase social interaction through shared gameplay objects.
+- Built to support short, repeatable session loops.
+- Structured as modular systems so each feature can be tested and improved independently.
+- Presentable as a live greybox prototype rather than a static concept.
+
+### Suggested Artifacts for Presentation
+- One 30 to 60 second gameplay clip showing the hub and the Module 3 quest flow.
+- One screenshot of the zone visuals with the floating title labels.
+- One screenshot of the module menu with all three systems visible.
+- One short bullet list of outcomes under each module.
 
 ## Dependencies
 
@@ -61,3 +119,12 @@ rojo serve
 ```
 
 For more help, check out [the Rojo documentation](https://rojo.space/docs).
+
+## Testing Module 3
+
+1. Join the place and open the hub UI.
+2. Select `Module 3: Dynamic Quest`.
+3. Walk near one of the supported zones until the prompt appears.
+4. Press `Accept Prompt`.
+5. Find the cat in the world and trigger `Rescue Lost Cat`.
+6. Confirm the temporary title appears and then expires after the configured duration.
