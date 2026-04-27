@@ -370,15 +370,17 @@ local function DynamicQuestView()
 			}),
 			AcceptPromptButton = React.createElement("TextButton", {
 				AutoButtonColor = false,
-				BackgroundColor3 = contextualPromptAvailable and Color3.fromRGB(32, 45, 41)
-					or Color3.fromRGB(29, 33, 41),
+				BackgroundColor3 = contextualPromptAvailable and Color3.fromRGB(84, 232, 204)
+					or Color3.fromRGB(60, 66, 75),
 				BorderSizePixel = 0,
-				FontFace = Font.fromEnum(Enum.Font.GothamMedium),
-				Size = UDim2.new(1, 0, 0, 40),
-				Text = contextualPromptAvailable and string.format("Accept Prompt (%s)", promptZoneName)
-					or "Accept Zone Prompt",
-				TextColor3 = Color3.fromRGB(236, 241, 247),
-				TextSize = 15,
+				FontFace = Font.fromEnum(Enum.Font.GothamBold),
+				Size = UDim2.new(1, 0, 0, 48),
+				Text = contextualPromptAvailable and string.format("ACCEPT PROMPT\n%s", promptZoneName)
+					or "⊝ No Zone Nearby",
+				TextColor3 = contextualPromptAvailable and Color3.fromRGB(12, 14, 18)
+					or Color3.fromRGB(165, 178, 199),
+				TextSize = contextualPromptAvailable and 16 or 14,
+				Enabled = contextualPromptAvailable,
 				[React.Event.Activated] = acceptPrompt,
 			}, {
 				Corner = React.createElement("UICorner", {
@@ -387,17 +389,18 @@ local function DynamicQuestView()
 			}),
 			StartButton = React.createElement("TextButton", {
 				AutoButtonColor = false,
-				BackgroundColor3 = Color3.fromRGB(29, 33, 41),
+				BackgroundColor3 = Color3.fromRGB(45, 50, 60),
 				BorderSizePixel = 0,
-				FontFace = Font.fromEnum(Enum.Font.GothamMedium),
-				Size = UDim2.new(1, 0, 0, 40),
-				Text = questActive and "Quest Active" or "Start Lost Pet Quest (Debug)",
-				TextColor3 = Color3.fromRGB(236, 241, 247),
-				TextSize = 15,
+				FontFace = Font.fromEnum(Enum.Font.Gotham),
+				Size = UDim2.new(1, 0, 0, 32),
+				Text = questActive and "Quest Active" or "[Debug] Start in Current Zone",
+				TextColor3 = Color3.fromRGB(136, 145, 158),
+				TextSize = 12,
+				Enabled = not questActive,
 				[React.Event.Activated] = startQuest,
 			}, {
 				Corner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(0, 8),
+					CornerRadius = UDim.new(0, 6),
 				}),
 			}),
 			SearchButton = React.createElement("TextButton", {

@@ -463,7 +463,7 @@ end
 
 function DynamicQuestService:_updateContextualPrompt(player: Player, now: number)
 	local playerState = self:_getState(player)
-	if playerState.questActive or now < playerState.nextPromptAt then
+	if playerState.questActive then
 		return
 	end
 
@@ -474,6 +474,11 @@ function DynamicQuestService:_updateContextualPrompt(player: Player, now: number
 
 	local nearbyZoneIndex = getNearestZoneIndex(rootPart.Position, DynamicQuestConfig.ZoneTriggerRadius)
 	if not nearbyZoneIndex then
+		if playerState.contextualPromptAvailable then
+			playerState.contextualPromptAvailable = false
+			playerState.statusText = "Walk near a zone to trigger a quest prompt."
+			self:_broadcastState(player)
+		end
 		return
 	end
 
@@ -485,7 +490,7 @@ function DynamicQuestService:_updateContextualPrompt(player: Player, now: number
 	playerState.promptZoneIndex = nearbyZoneIndex
 	playerState.zoneIndex = nearbyZoneIndex
 	playerState.statusText = string.format(
-		"Context quest available in %s. Accept prompt to start the two-minute search.",
+		"Quest available in %s! Click Accept Prompt to start the hunt.",
 		self:_getZoneName(nearbyZoneIndex)
 	)
 	self:_positionCatAtZone(nearbyZoneIndex)
