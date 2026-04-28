@@ -184,6 +184,11 @@ local function DynamicQuestView()
 	end
 
 	local function startQuest()
+		if questActive then
+			setStatusText("A quest is already active.")
+			return
+		end
+
 		if serviceMode == "server" then
 			if fireServerAction("startQuest") then
 				setStatusText("Requesting a dynamic quest from the server...")
@@ -200,6 +205,11 @@ local function DynamicQuestView()
 	end
 
 	local function acceptPrompt()
+		if not contextualPromptAvailable then
+			setStatusText("Walk near a quest zone first to unlock the contextual prompt.")
+			return
+		end
+
 		if serviceMode == "server" then
 			if fireServerAction("acceptPrompt") then
 				setStatusText("Accepting contextual quest prompt from the server...")
@@ -377,10 +387,8 @@ local function DynamicQuestView()
 				Size = UDim2.new(1, 0, 0, 48),
 				Text = contextualPromptAvailable and string.format("ACCEPT PROMPT\n%s", promptZoneName)
 					or "⊝ No Zone Nearby",
-				TextColor3 = contextualPromptAvailable and Color3.fromRGB(12, 14, 18)
-					or Color3.fromRGB(165, 178, 199),
+				TextColor3 = contextualPromptAvailable and Color3.fromRGB(12, 14, 18) or Color3.fromRGB(165, 178, 199),
 				TextSize = contextualPromptAvailable and 16 or 14,
-				Enabled = contextualPromptAvailable,
 				[React.Event.Activated] = acceptPrompt,
 			}, {
 				Corner = React.createElement("UICorner", {
@@ -396,7 +404,6 @@ local function DynamicQuestView()
 				Text = questActive and "Quest Active" or "[Debug] Start in Current Zone",
 				TextColor3 = Color3.fromRGB(136, 145, 158),
 				TextSize = 12,
-				Enabled = not questActive,
 				[React.Event.Activated] = startQuest,
 			}, {
 				Corner = React.createElement("UICorner", {

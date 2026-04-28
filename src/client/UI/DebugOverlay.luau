@@ -33,9 +33,12 @@ local function formatElapsedSeconds(totalSeconds)
 	return string.format("%02d:%02d", minutes, seconds)
 end
 
-local function DebugOverlay()
+local function DebugOverlay(props)
 	local hub = HubContext.useHubContext()
 	local nowTick, setNowTick = React.useState(os.clock())
+
+	local uiScaleProp = (props and props.uiScale) or 1
+	local setUiScale = (props and props.setUiScale) or function() end
 
 	React.useEffect(function()
 		local alive = true
@@ -59,6 +62,14 @@ local function DebugOverlay()
 
 	local moduleLabel = toModuleLabel(hub.activeModule)
 	local statusText = hub.activeModule and "Sandbox Active" or "Waiting In Hub"
+
+	local function increaseScale()
+		setUiScale(math.clamp(uiScaleProp + 0.02, 0.6, 1.5))
+	end
+
+	local function decreaseScale()
+		setUiScale(math.clamp(uiScaleProp - 0.02, 0.6, 1.5))
+	end
 
 	return React.createElement("Frame", {
 		AnchorPoint = Vector2.new(1, 0),
@@ -125,6 +136,43 @@ local function DebugOverlay()
 			TextSize = 14,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 21,
+		}),
+		ScaleLabel = React.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Position = UDim2.fromOffset(0, 78),
+			Size = UDim2.fromOffset(220, 16),
+		}, {
+			ScaleText = React.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				FontFace = Font.fromEnum(Enum.Font.Gotham),
+				Size = UDim2.fromScale(0.6, 1),
+				Text = string.format("UI Scale: %.2f", uiScaleProp),
+				TextColor3 = Color3.fromRGB(210, 218, 231),
+				TextSize = 12,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+			Minus = React.createElement("TextButton", {
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(0.78, 0, 0.5, 0),
+				Size = UDim2.fromOffset(36, 16),
+				AutoButtonColor = false,
+				BackgroundColor3 = Color3.fromRGB(40, 44, 52),
+				Text = "−",
+				TextColor3 = Color3.fromRGB(238, 242, 249),
+				TextSize = 14,
+				[React.Event.Activated] = decreaseScale,
+			}),
+			Plus = React.createElement("TextButton", {
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(0.95, 0, 0.5, 0),
+				Size = UDim2.fromOffset(36, 16),
+				AutoButtonColor = false,
+				BackgroundColor3 = Color3.fromRGB(40, 44, 52),
+				Text = "+",
+				TextColor3 = Color3.fromRGB(238, 242, 249),
+				TextSize = 14,
+				[React.Event.Activated] = increaseScale,
+			}),
 		}),
 	})
 end

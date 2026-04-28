@@ -70,13 +70,17 @@ local function getCharacterRootPart(player: Player): BasePart?
 end
 
 local function getNearestZoneIndex(position: Vector3, maxDistance: number): number?
+	-- Use horizontal (XZ) distance so vertical offsets (player height) don't prevent
+	-- zone triggers when the player is within the planar radius.
 	local nearestIndex = nil
 	local nearestDistance = maxDistance
 
 	for index, zone in ipairs(DynamicQuestConfig.Zones) do
-		local distance = (zone.position - position).Magnitude
-		if distance <= nearestDistance then
-			nearestDistance = distance
+		local dx = zone.position.X - position.X
+		local dz = zone.position.Z - position.Z
+		local planarDistance = math.sqrt(dx * dx + dz * dz)
+		if planarDistance <= nearestDistance then
+			nearestDistance = planarDistance
 			nearestIndex = index
 		end
 	end

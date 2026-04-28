@@ -76,8 +76,19 @@ local function getModuleView(moduleId)
 	})
 end
 
-local function HubMenu()
+local function HubMenu(props)
 	local hub = HubContext.useHubContext()
+
+	local viewportSize = Vector2.new(1440, 900)
+	if props and props.viewportSize then
+		viewportSize = props.viewportSize
+	end
+
+	-- Compute responsive max sizes based on viewport
+	local largeMaxWidth = math.min(760, math.floor(viewportSize.X * 0.6))
+	local largeMaxHeight = math.min(620, math.floor(viewportSize.Y * 0.7))
+	local smallMaxWidth = math.min(520, math.floor(viewportSize.X * 0.45))
+	local smallMaxHeight = math.min(430, math.floor(viewportSize.Y * 0.5))
 
 	local function renderHeaderControl()
 		return React.createElement("TextButton", {
@@ -140,7 +151,7 @@ local function HubMenu()
 			Size = UDim2.fromScale(1, 1),
 		}, {
 			SizeConstraint = React.createElement("UISizeConstraint", {
-				MaxSize = Vector2.new(760, 620),
+				MaxSize = Vector2.new(largeMaxWidth, largeMaxHeight),
 				MinSize = Vector2.new(420, 360),
 			}),
 			Corner = React.createElement("UICorner", {
@@ -205,7 +216,7 @@ local function HubMenu()
 		Size = UDim2.fromScale(0.76, 0.88),
 	}, {
 		SizeConstraint = React.createElement("UISizeConstraint", {
-			MaxSize = Vector2.new(520, 430),
+			MaxSize = Vector2.new(smallMaxWidth, smallMaxHeight),
 			MinSize = Vector2.new(320, 260),
 		}),
 		Corner = React.createElement("UICorner", {

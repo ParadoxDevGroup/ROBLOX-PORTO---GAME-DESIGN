@@ -104,15 +104,22 @@ local function HubScreen(props)
 				Scale = React.createElement("UIScale", {
 					Scale = props.uiScale,
 				}),
-				Hub = React.createElement(HubMenu),
+				Hub = React.createElement(HubMenu, {
+					viewportSize = props.viewportSize,
+				}),
 			}),
-			Debug = React.createElement(DebugOverlay),
+			Debug = React.createElement(DebugOverlay, {
+				uiScale = props.uiScale,
+				setUiScale = props.setUiScale,
+				viewportSize = props.viewportSize,
+			}),
 		}),
 	})
 end
 
 local function App()
 	local uiScale, setUiScale = React.useState(1)
+	local viewportSize, setViewportSize = React.useState(Vector2.new(1440, 900))
 	React.useEffect(function()
 		local camera = Workspace.CurrentCamera
 		local viewportConnection = nil
@@ -121,6 +128,7 @@ local function App()
 		local function updateScale()
 			local activeCamera = Workspace.CurrentCamera
 			if activeCamera then
+				setViewportSize(activeCamera.ViewportSize)
 				setUiScale(calculateUiScale(activeCamera.ViewportSize))
 			end
 		end
@@ -162,6 +170,8 @@ local function App()
 	return React.createElement(HubContext.HubProvider, nil, {
 		HubScreen = React.createElement(HubScreen, {
 			uiScale = uiScale,
+			setUiScale = setUiScale,
+			viewportSize = viewportSize,
 		}),
 	})
 end
