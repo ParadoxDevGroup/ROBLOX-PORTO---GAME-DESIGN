@@ -64,11 +64,17 @@ local function DebugOverlay(props)
 	local statusText = hub.activeModule and "Sandbox Active" or "Waiting In Hub"
 
 	local function increaseScale()
-		setUiScale(math.clamp(uiScaleProp + 0.02, 0.6, 1.5))
+		local v = uiScaleProp + 0.02
+		v = math.max(v, 0.6)
+		v = math.min(v, 1.5)
+		setUiScale(v)
 	end
 
 	local function decreaseScale()
-		setUiScale(math.clamp(uiScaleProp - 0.02, 0.6, 1.5))
+		local v = uiScaleProp - 0.02
+		v = math.max(v, 0.6)
+		v = math.min(v, 1.5)
+		setUiScale(v)
 	end
 
 	return React.createElement("Frame", {
